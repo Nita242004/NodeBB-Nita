@@ -325,14 +325,12 @@ module.exports = function (module) {
 
 			for (let i = 0; i < data.length; i += 2) {
 				const value = data[i];
+
 				if (!seen[value]) {
 					seen[value] = 1;
+					const item = params.withScores ? { value: value, score: parseFloat(data[i + 1]) } : value;
+					returnData.push(item);
 
-					if (params.withScores) {
-						returnData.push({ value: value, score: parseFloat(data[i + 1]) });
-					} else {
-						returnData.push(value);
-					}
 					if (params.limit && returnData.length >= params.limit) {
 						done = true;
 						break;
